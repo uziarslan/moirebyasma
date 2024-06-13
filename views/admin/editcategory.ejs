@@ -1,0 +1,37 @@
+<%- include('../partials/head') %>
+<title>Dashboard</title>
+<%- include('../partials/headclose') %>
+<section>
+  <div class="sidenavBarContainer">
+    <ul class="navLinksContainer">
+      <li class="navs activeBg">
+        <a href="/admin/category" class="navLinks">Category</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/product" class="navLinks">Product</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/users" class="navLinks">Users</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/orders" class="navLinks">Orders</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/all" class="navLinks">Admins</a>
+      </li>
+    </ul>
+  </div>
+  <section class="customStyles">
+    <form novalidate class="login-form" method="post" action="/category/<%= category._id %>?_method=PUT">
+      <h1 class="heading">Edit a Category</h1>
+      <%- include('../partials/flash') %>
+      <div class="helpers">
+        <h6 class="helperText">1. Edit name for the category</h6>
+        <input value="<%= category.categoryName %>" required name="categoryName" type="text" class="form-control" placeholder="Category Name" />
+      </div>
+      <button type="submit" class="btn btn-success">Save</button>
+    </form>
+    <a class="mt-3" href="/admin/category">Go Back</a>
+  </section>
+</section>
+<%- include('../partials/bodyclose') %>

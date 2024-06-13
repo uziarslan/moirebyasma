@@ -1,0 +1,81 @@
+<!-- Homepage Navbar -->
+<script>
+  const toggleBtn = document.querySelector('.toggle_btn')
+  const toggleBtnIcon = document.querySelector('.toggle_btn i')
+  const dropdownMenu = document.querySelector('.dropdown_menu')
+  toggleBtn.onclick = function() {
+    dropdownMenu.classList.toggle('open')
+  }
+
+</script>
+
+<!-- Homepage categories fade effect -->
+<script>
+  AOS.init({
+    duration: 1000
+  });
+
+</script>
+
+
+<!-- userInfo -->
+<script>
+  const dropdown_cart = document.querySelector(".dropdowncontainer");
+  dropdown_cart.addEventListener('click', () => {
+    const dropCart = document.querySelector('.productInfoDropdown');
+    dropCart.style.height = dropCart.style.height === "auto" ? "0" : "auto";
+  });
+
+  (() => {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.from(forms)
+      .forEach(form => {
+        form.addEventListener('submit', event => {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()
+
+</script>
+
+
+<!-- Login Form -->
+<script>
+  (() => {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.login-form')
+
+    // Loop over them and prevent submission
+    Array.from(forms)
+      .forEach(form => {
+        form.addEventListener('submit', event => {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()
+
+</script>
+
+<!-- CDN's -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
+</body>
+
+</html>

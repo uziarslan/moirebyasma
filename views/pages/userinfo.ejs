@@ -1,0 +1,130 @@
+<%- include('../partials/head') %>
+<title>Checkout || Moire by Asma</title>
+<%- include('../partials/headclose') %>
+<div class="bodyContainer">
+  <div class="userInfo">
+    <a href="/">
+      <img src="#" class="logo" />
+    </a>
+    <%- include('../partials/flash') %>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/cart">Cart</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Information</li>
+        <li class="breadcrumb-item"><a href="#">Shipping</a></li>
+        <li class="breadcrumb-item"><a href="#">Payment</a></li>
+      </ol>
+    </nav>
+    <div class="dropdowncontainer">
+      <div class="productInfoDropdown">
+        <% cart.map((product) => { %>
+        <div class="productInfoRow">
+          <img src="<%= product.images[0].path %>" class="checkoutProductImage" />
+          <div class="productinfoRow">
+            <div class="nameNSize">
+              <h6><%= product.productName %></h6>
+              <p>Size: <%= product.size %></p>
+            </div>
+            <div class="priceNQty">
+              <p class="mb-0"><strong>Rs<%= product.price %>.00</strong></p>
+              <p>QTY <%= product.qty %></p>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+        <div class="totalAmountContainer">
+          <div class="subtotal">
+            <p class="textSubtotal">Subtotal</p>
+            <% let cartTotal = 0 %>
+            <% cart.map((product) => { %>
+            <% cartTotal = (parseInt(product.price)*parseInt(product.qty) + cartTotal) %>
+            <% }) %>
+            <p class="amountSubtotal"><strong>Rs<%= cartTotal %>.00</strong></p>
+          </div>
+          <div class="subtotal">
+            <p>Shipping</p>
+            <div>Calculate at next step</div>
+          </div>
+          <div class="subtotal">
+            <p><strong>Total</strong></p>
+            <p>PKR <strong>Rs<%= cartTotal %>.00</strong></p>
+          </div>
+        </div>
+      </div>
+      <div class="orderSummaryContainer">
+        <div class="iconNText">
+          <i class='bx bx-cart'></i>
+          <p class="orderSummaryText">Show order summary</p>
+          <i class='bx bx-chevron-down'></i>
+        </div>
+        <p class="cartTotal"><strong>Rs<%= cartTotal %>.00</strong></p>
+      </div>
+    </div>
+    <form class="needs-validation" action="/signup" method="post" novalidate>
+      <div class="emailHeading">
+        <h6 class="contactHeading">Contact</h6>
+        <p class="loginText">Already have an account? <a href="/user/login">Login</a></p>
+      </div>
+      <input required name="username" type="email" class="form-control mb-3" placeholder="Email" />
+      <input required name="password" type="password" class="form-control mb-3" placeholder="Password" />
+      <h6 class="shippingHeading">Shipping address</h6>
+      <select name="country" class="form-select mb-3">
+        <option selected value="Pakistan">Pakistan</option>
+      </select>
+      <div class="halfInputsContainer mb-3">
+        <input required type="text" placeholder="First name" name="firstName" class="halfInputs" />
+        <input required type="text" placeholder="Last name" name="lastName" class="halfInputs" />
+      </div>
+      <input required type="text" placeholder="Address" class="form-control mb-3" name="address" />
+      <input type="text" placeholder="Apartment, suite, etc. (optional)" name="otherAddress" class="form-control mb-3" />
+      <div class="halfInputsContainer mb-3">
+        <input required type="text" class="halfInputs" name="city" placeholder="City" />
+        <input required type="text" class="halfInputs" name="postalCode" placeholder="Postal Code" />
+      </div>
+      <input required type="tel" placeholder="Phone" class="form-control mb-3" name="contact" />
+      <div class="formBottom">
+        <a href="/cart" class="returnCart">
+          <i class='bx bx-chevron-left'></i>
+          <p class="linkText">Return to cart</p>
+        </a>
+        <button type="submit" class="submitButton">Continue to shipping</button>
+      </div>
+    </form>
+  </div>
+  <div class="productInfoContainer">
+    <% cart.map((product) => { %>
+    <div class="productInfoRow">
+      <img src="<%= product.images[0].path %>" class="checkoutProductImage" />
+      <div class="productinfoRow">
+        <div class="nameNSize">
+          <h6><%= product.productName %></h6>
+          <p>Size: <%= product.size %></p>
+        </div>
+        <div class="priceNQty">
+          <p class="mb-0"><strong>Rs<%= product.price %>.00</strong></p>
+          <p>QTY <%= product.qty %></p>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+    <div class="totalAmountContainer">
+      <div class="subtotal">
+        <p class="textSubtotal">Subtotal</p>
+        <% let subtotal = 0 %>
+        <% cart.map((product) => { %>
+        <% subtotal = (parseInt(product.price)*parseInt(product.qty) + subtotal) %>
+        <% }) %>
+        <p class="amountSubtotal"><strong>Rs<%= subtotal %>.00</strong></p>
+      </div>
+      <div class="subtotal">
+        <p>Shipping</p>
+        <div>Calculate at next step</div>
+      </div>
+      <div class="subtotal">
+        <p><strong>Total</strong></p>
+        <p>PKR <strong>Rs<%= subtotal %>.00</strong></p>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('../partials/bodyclose') %>

@@ -1,0 +1,103 @@
+<%- include('../partials/head') %>
+<title>Dashboard</title>
+<%- include('../partials/headclose') %>
+<section>
+  <div class="sidenavBarContainer">
+    <ul class="navLinksContainer">
+      <li class="navs">
+        <a href="/admin/category" class="navLinks">Category</a>
+      </li>
+      <li class="navs activeBg">
+        <a href="/admin/product" class="navLinks">Product</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/users" class="navLinks">Users</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/orders" class="navLinks">Orders</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/all" class="navLinks">Admins</a>
+      </li>
+    </ul>
+  </div>
+  <section class="customStyles">
+    <form novalidate class="login-form" method="post" action="/product/<%=product._id%>?_method=PUT" enctype="multipart/form-data">
+      <h1 class="categoryHeading">Edit a Product</h1>
+      <a href="/admin/product">Go Back</a>
+      <%- include('../partials/flash') %>
+      <div class="helpers mt-4">
+        <div class="row g-3 mb-4">
+          <div class="col-md-4">
+            <label for="images" class="form-label">Product Images:</label>
+            <input class="form-control" type="file" id="images" name="images" multiple>
+          </div>
+          <div class="col-md-4">
+            <label for="productName" class="form-label">Product Name:</label>
+            <input class="form-control" type="text" id="productName" name="productName" value="<%= product.productName %>" required>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label" for="price">Price:</label>
+            <input class="form-control" type="number" id="price" name="price" step="0.01" value="<%= product.price %>" required>
+          </div>
+        </div>
+        <div class="row g-3 mb-4">
+          <div class="col-md-4">
+            <label class="form-label" for="size">Sizes:</label>
+            <input class="form-control" type="text" id="size" name="size" placeholder="Separate sizes with commas (e.g., S,M,L)" value="<%= size %>" required>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label" for="stock">Stock:</label>
+            <input class="form-control" type="text" id="stock" name="stock" placeholder="Separate stock quantities with commas" value="<%= stock %>" required>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label" for="color">Color:</label>
+            <input placeholder="Seprate color with commas (eg., Black,Red)" class="form-control" type="text" id="color" name="color" value="<%= color %>" required>
+          </div>
+        </div>
+        <div class="row g-3 mb-4">
+          <div class="col-md-4">
+            <label class="form-label" for="fabric">Fabric:</label>
+            <input class="form-control" type="text" id="fabric" name="fabric" placeholder="Separate fabrics with commas (e.g., Cotton,Polyester)" value="<%= fabric %>" required>
+          </div>
+          <div class="col-md-4 form-floating">
+            <textarea class="form-control" id="description" name="description" required><%= product.description %></textarea>
+            <label for="description">Description:</label>
+          </div>
+          <div class="col-md-4 form-floating">
+            <textarea class="form-control" id="note" name="note"><%= product.note %></textarea>
+            <label for="note">Note:</label>
+          </div>
+        </div>
+        <% if(category.length) {%>
+        <div class="row">
+          <div class="col-md-12">
+            <select name="categoryId" class="form-select" aria-label="Default select example">
+              <% if(productInCategory) {%>
+              <option selected value="<%= productInCategory._id %>"><%= productInCategory.categoryName %></option>
+              <% }else{ %>
+              <option selected value="">Select a category or None</option>
+              <% } %>
+              <% category.map((category) => { %>
+              <option value="<%= category._id %>"><%= category.categoryName %></option>
+              <%}) %>
+            </select>
+          </div>
+        </div>
+        <% } %>
+      </div>
+      <button type="submit" class="btn btn-success">Save</button>
+    </form>
+    <div class="imagesCollection">
+      <% product.images.map(({filename, path}) => { %>
+      <form class="deleteimgForm" method="post" action="/product/<%= product._id %>/image/<%= encodeURIComponent(filename) %>?_method=DELETE">
+        <img src="<%= path %>" class="collectionImgStyles" />
+        <button type="submit">
+          <i class='bx bxs-trash-alt'></i>
+        </button>
+      </form>
+      <%}) %>
+    </div>
+  </section>
+</section>
+<%- include('../partials/bodyclose') %>

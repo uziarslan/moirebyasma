@@ -1,0 +1,194 @@
+section {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100vh;
+}
+
+.sidenavBarContainer {
+    height: 100%;
+    background-color: crimson;
+}
+
+.navLinksContainer {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-family: 'Cinzel', serif;
+}
+
+.navs {
+    padding: 1rem 0.85rem;
+}
+
+.navLinks {
+    text-decoration: none;
+    color: white;
+}
+
+.activeBg {
+    background-color: darkgray;
+    color: white !important;
+    font-weight: bold;
+}
+
+
+.customStyles {
+    padding: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.helpers {
+    margin-bottom: 15px;
+}
+
+.createdCategorySection {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.tabs {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.5rem 0.85rem;
+    background-color: beige;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.tabs form {
+    color: black;
+    margin: 0 10px 0 0;
+    font-size: 20px;
+}
+
+.tabs form button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+.categoryName {
+    font-size: 20px;
+    margin: 0;
+    margin-right: 10px;
+    font-family: 'Cinzel', serif;
+}
+
+.conditionalText {
+    text-align: center;
+    font-family: 'Cinzel', serif;
+}
+
+.button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.usersForm {
+    display: flex;
+    flex-direction: row;
+    padding: 0.8rem 1rem;
+    width: 100%;
+    background-color: beige;
+    border-radius: 10px;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.buttn button {
+    background-color: transparent;
+    border: none;
+}
+
+.buttn button i {
+    font-size: 24px;
+}
+
+.imagesCollection {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
+
+.collectionImgStyles {
+    height: 100px;
+    margin-right: 15px;
+}
+
+.deleteimgForm {
+    border: 1px solid black;
+    margin-right: 10px;
+}
+
+.deleteimgForm button {
+    background-color: transparent;
+    border: none;
+}
+
+.deleteimgForm button i {
+    color: red;
+}
+
+.orderProductContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.orderProductImage {
+    width: 150px;
+}
+
+.productview {
+    margin-left: 15px;
+}
+
+.productview p {
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.userview {
+    margin-right: 15px;
+}
+
+.userview p {
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.orderView p {
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.helpers2 {
+    background-color: antiquewhite;
+    padding: 1rem;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+.markShipped {
+    background-color: black;
+    padding: 0.5rem 0.8rem;
+    border: none;
+    border-radius: 10px;
+    color: white;
+}

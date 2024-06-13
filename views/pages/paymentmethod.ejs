@@ -1,0 +1,177 @@
+<%- include('../partials/head') %>
+<title>Checkout || Moire by Asma</title>
+<%- include('../partials/headclose') %>
+<div class="bodyContainer">
+  <div class="userInfo">
+    <a href="/">
+      <img src="#" class="logo" />
+    </a>
+    <%- include('../partials/flash') %>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/cart">Cart</a></li>
+        <li class="breadcrumb-item"><a href="/checkout">Information</a></li>
+        <li class="breadcrumb-item"><a href="/payment/method">Shipping</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Payment</li>
+
+
+      </ol>
+    </nav>
+    <div class="dropdowncontainer">
+      <div class="productInfoDropdown">
+        <% cart.map((product) => { %>
+        <div class="productInfoRow">
+          <img src="<%= product.images[0].path %>" class="checkoutProductImage" />
+          <div class="productinfoRow">
+            <div class="nameNSize">
+              <h6><%= product.productName %></h6>
+              <p>Size: <%= product.size %></p>
+            </div>
+            <div class="priceNQty">
+              <p class="mb-0"><strong>Rs<%= product.price %>.00</strong></p>
+              <p>QTY <%= product.qty %></p>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+        <div class="totalAmountContainer">
+          <div class="subtotal">
+            <p class="textSubtotal">Subtotal</p>
+            <% let cartTotal = 0 %>
+            <% cart.map((product) => { %>
+            <% cartTotal = (parseInt(product.price)*parseInt(product.qty) + cartTotal) %>
+            <% }) %>
+            <p class="amountSubtotal"><strong>Rs<%= cartTotal %>.00</strong></p>
+          </div>
+          <div class="subtotal">
+            <p>Shipping</p>
+            <div>Calculate at next step</div>
+          </div>
+          <div class="subtotal">
+            <p><strong>Total</strong></p>
+            <p>PKR <strong>Rs<%= cartTotal %>.00</strong></p>
+          </div>
+        </div>
+      </div>
+      <div class="orderSummaryContainer">
+        <div class="iconNText">
+          <i class='bx bx-cart'></i>
+          <p class="orderSummaryText">Show order summary</p>
+          <i class='bx bx-chevron-down'></i>
+        </div>
+        <p class="cartTotal"><strong>Rs<%= cartTotal %>.00</strong></p>
+      </div>
+    </div>
+    <div class="userInfoSection">
+      <div class="contactSection">
+        <p class="textlabel">Contact</p>
+        <p class="email"><%= user.username %></p>
+        <a class="changeLink" href="/edit/user/<%= user._id %>">Change</a>
+      </div>
+      <hr class="hr">
+      <div class="contactSection">
+        <p class="textlabel">Ship to</p>
+        <p class="email"><%= user.address %>, <%= user.city  %> <%= user.postalCode %>, <%= user.country %></p>
+        <a class="changeLink" href="/edit/user/<%= user._id %>">Change</a>
+      </div>
+      <hr class="hr">
+      <div class="contactSection">
+        <p class="textlabel">Method</p>
+        <p class="email">Shipping &bull; <strong>Free</strong></p>
+      </div>
+    </div>
+    <div class="paymentMethodContaciner">
+      <h6>Payment</h6>
+      <form method="post" action="/order/confirm">
+        <div class="accordion">
+          <input class="form-check-input" type="radio" name="paymentMethod" value="Cash On Delivery" id="cashOnDelivery">
+          <label class="form-check-label" for="cashOnDelivery">
+            Cash on delivery
+          </label>
+        </div>
+        <div class="expandContainer">
+          <p>Note: Cash on delivery is only available for deliveries in Pakistan.</p>
+        </div>
+        <div class="accordion">
+          <input value="Bank Deposit" class="form-check-input" type="radio" name="paymentMethod" id="bankDeposit">
+          <label class="form-check-label" for="bankDeposit">
+            Bank Deposit
+          </label>
+        </div>
+        <div class="expandContainer">
+          <p>You will be contacted shortly to guide you through the process and provide any necessary information.</p>
+        </div>
+    </div>
+    <div class="formBottom">
+      <a href="/cart" class="returnCart">
+        <i class='bx bx-chevron-left'></i>
+        <p class="linkText">Return to cart</p>
+      </a>
+      <button type="submit" class="submitButton">Complete Order</button>
+    </div>
+    </form>
+  </div>
+  <div class="productInfoContainer">
+    <% cart.map((product) => { %>
+    <div class="productInfoRow">
+      <img src="<%= product.images[0].path %>" class="checkoutProductImage" />
+      <div class="productinfoRow">
+        <div class="nameNSize">
+          <h6><%= product.productName %></h6>
+          <p>Size: <%= product.size %></p>
+        </div>
+        <div class="priceNQty">
+          <p class="mb-0"><strong>Rs<%= product.price %>.00</strong></p>
+          <p>QTY <%= product.qty %></p>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+    <div class="totalAmountContainer">
+      <div class="subtotal">
+        <p class="textSubtotal">Subtotal</p>
+        <% let subtotal = 0 %>
+        <% cart.map((product) => { %>
+        <% subtotal = (parseInt(product.price)*parseInt(product.qty) + subtotal) %>
+        <% }) %>
+        <p class="amountSubtotal"><strong>Rs<%= subtotal %>.00</strong></p>
+      </div>
+      <div class="subtotal">
+        <p>Shipping</p>
+        <div>Calculate at next step</div>
+      </div>
+      <div class="subtotal">
+        <p><strong>Total</strong></p>
+        <p>PKR <strong>Rs<%= subtotal %>.00</strong></p>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const accordions = document.querySelectorAll('.accordion');
+
+  accordions.forEach((accordion) => {
+    const input = accordion.querySelector('input[type="radio"]');
+    const expandContainer = accordion.nextElementSibling;
+
+    input.addEventListener('change', function() {
+      if (this.checked) {
+        accordions.forEach((otherAccordion) => {
+          const otherInput = otherAccordion.querySelector('input[type="radio"]');
+          const otherExpandContainer = otherAccordion.nextElementSibling;
+
+          if (otherInput !== this) {
+            otherInput.checked = false;
+            otherExpandContainer.classList.remove('expand');
+          }
+        });
+
+        expandContainer.classList.add('expand');
+      } else {
+        expandContainer.classList.remove('expand');
+      }
+    });
+  });
+
+</script>
+<%- include('../partials/bodyclose') %>

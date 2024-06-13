@@ -1,0 +1,50 @@
+<%- include('../partials/head') %>
+<title>Dashboard</title>
+<%- include('../partials/headclose') %>
+<section>
+  <div class="sidenavBarContainer">
+    <ul class="navLinksContainer">
+      <li class="navs">
+        <a href="/admin/category" class="navLinks">Category</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/product" class="navLinks">Product</a>
+      </li>
+      <li class="navs activeBg">
+        <a href="/admin/users" class="navLinks">Users</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/orders" class="navLinks">Orders</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/all" class="navLinks">Admins</a>
+      </li>
+    </ul>
+  </div>
+  <section class="customStyles">
+    <h1 class="categoryHeading">All Users</h1>
+    <p>Total: <%= users.length %></p>
+    <%- include('../partials/flash') %>
+    <% users.map((user) => { %>
+    <form class="usersForm" method="post" action="/delete/<%= user._id %>?_method=DELETE" enctype="multipart/form-data">
+      <div class="usersTab">
+        <h6><span style="font-weight: 400;">Email:</span> <%= user.username %></h6>
+        <h6><span style="font-weight: 400;">First Name:</span> <%= user.firstName %></h6>
+        <h6><span style="font-weight: 400;">Last Name:</span> <%= user.lastName %></h6>
+        <h6><span style="font-weight: 400;">Country:</span> <%= user.country %></h6>
+        <h6><span style="font-weight: 400;">Address:</span> <%= user.address %></h6>
+        <h6><span style="font-weight: 400;">Other Address:</span> <%= user.otherAddress %></h6>
+        <h6><span style="font-weight: 400;">City:</span> <%= user.city %></h6>
+        <h6><span style="font-weight: 400;">Postal Code:</span> <%= user.postalCode %></h6>
+        <h6><span style="font-weight: 400;">Contact:</span> <%= user.contact %></h6>
+      </div>
+      <div class="buttn">
+        <button type="submit">
+          <i class='bx bxs-trash-alt'></i>
+        </button>
+      </div>
+    </form>
+    <%}) %>
+  </section>
+</section>
+<%- include('../partials/bodyclose') %>

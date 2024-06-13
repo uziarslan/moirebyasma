@@ -1,0 +1,104 @@
+<%- include('../partials/head') %>
+<title><%= product.productName %> || <%= categoryName %></title>
+<%- include('../partials/headclose') %>
+<%- include('../partials/topper') %>
+<%- include('../partials/navbar') %>
+<%- include('../partials/imagegallery') %>
+<% if(suggestion.length) {%>
+<div class="categoryContainer">
+  <h6 data-aos="zoom-in-up" class="categoryHeading">You May Also Like</h5>
+    <div class="productsRowBottom">
+      <% suggestion.map((product) => { %>
+      <a data-aos="zoom-in-up" href="/product/<%= product._id %>" class="productCard">
+        <img class="productImage" src="<%= product.images[0].path %>" />
+        <div class="cardBottom">
+          <p class="productTitle"><%= product.productName %></p>
+          <p class="productPrice">Rs.<%= product.price %>.00 PKR</p>
+        </div>
+      </a>
+      <% }) %>
+    </div>
+</div>
+<% } %>
+<%- include('../partials/footer') %>
+<!-- Product Showpage Image gallery -->
+<script>
+  function myFunction(smallImg) {
+    const smallImages = document.querySelectorAll(".product-small-img img");
+    smallImages.forEach(image => {
+      image.style.opacity = "0.6"
+    })
+    var fullImage = document.getElementById('full-img');
+    fullImage.src = smallImg.src;
+    smallImg.style.opacity = "1"
+  }
+
+  function disableBtn(button) {
+    button.disabled = true
+    button.innerHTML = "Added to cart"
+  }
+
+  function incrementQty() {
+    console.log("Incrementing quantity");
+    const qty = document.querySelector('#qty');
+    const increment = parseInt(qty.value) + 1;
+    if (parseInt(qty.value) < parseInt(qty.max)) {
+      qty.value = increment;
+    }
+  }
+
+  function decrementQty() {
+    // console.log("Decrementing quantity");
+    const qty = document.querySelector('#qty');
+    const increment = parseInt(qty.value) - 1;
+    if (parseInt(qty.value) > 1) {
+      qty.value = increment;
+    }
+  }
+
+  function selectSize(size, stockQty) {
+    const sizeIn = document.querySelector('#hiddenInput');
+    const qty = document.querySelector('#qty');
+    qty.max = stockQty;
+
+    // Update the selected size text
+    if (stockQty !== 0) {
+      document.getElementById('selected-option-1')
+        .textContent = size;
+
+      // Clear previously selected size
+      const selectedSwatch = document.querySelector('.swatches__swatch.selected');
+      if (selectedSwatch) {
+        selectedSwatch.classList.remove('selected');
+      }
+
+      // Select the new size
+      const swatch = document.querySelector(`.swatches__swatch input[value="${size}"]`)
+        .parentNode;
+
+      // Conditionally add the 'selected' class based on stockQty
+      if (stockQty > 0) {
+        swatch.classList.add('selected');
+      }
+
+      // Update the value of the hidden input field with the selected size
+      if (sizeIn) {
+        sizeIn.value = size;
+      }
+
+      // Enable the Add to Cart button if it was previously disabled
+      const addToCartBtn = document.querySelector('.addToCartBtn');
+      if (addToCartBtn && addToCartBtn.disabled) {
+        addToCartBtn.disabled = false;
+      }
+    }
+  }
+
+  window.onload = function() {
+    const sizeSwatch = document.getElementById('firstSwatch');
+    sizeSwatch.click();
+  }
+
+</script>
+
+<%- include('../partials/bodyclose') %>

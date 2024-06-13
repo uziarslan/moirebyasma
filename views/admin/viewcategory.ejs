@@ -1,0 +1,56 @@
+<%- include('../partials/head') %>
+<title>Dashboard</title>
+<%- include('../partials/headclose') %>
+<section>
+  <div class="sidenavBarContainer">
+    <ul class="navLinksContainer">
+      <li class="navs activeBg">
+        <a href="/admin/category" class="navLinks">Category</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/product" class="navLinks">Product</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/users" class="navLinks">Users</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/orders" class="navLinks">Orders</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/all" class="navLinks">Admins</a>
+      </li>
+    </ul>
+  </div>
+  <section class="customStyles">
+    <div data-aos="zoom-in-up" class="categoryContainer">
+      <h3 class="categoryHeading"><%= category.categoryName %></h3>
+      <%- include('../partials/flash') %>
+      <a href="/admin/category">Go Back</a>
+      <% if(category.products.length) {%>
+      <div class="productsRow mt-4">
+        <% for(let i=0; i < category.products.length; i++) {%>
+        <div data-aos="zoom-in-up" class="productCard">
+          <img class="productImage" src="<%= category.products[i].images[0].path %>" />
+          <div class="cardBottom">
+            <p class="productTitle"><%= category.products[i].productName %></p>
+            <p class="productPrice">Rs.<%= category.products[i].price %>.00 PKR</p>
+          </div>
+          <div class="button mt-1">
+            <a href="/admin/product/<%= category.products[i]._id %>/edit">
+              <button class="btn btn-success">Edit</button>
+            </a>
+            <form method="post" action="/category/<%= category._id %>/product/<%= category.products[i]._id %>?_method=DELETE">
+              <button type="submit" class="btn btn-danger">Remove From Category</button>
+            </form>
+          </div>
+        </div>
+        <% } %>
+        <% }else{ %>
+        <h5 class="conditionalText mt-4">No Product added to this category!</h3>
+          <% } %>
+      </div>
+    </div>
+
+  </section>
+</section>
+<%- include('../partials/bodyclose') %>

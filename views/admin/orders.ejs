@@ -1,0 +1,91 @@
+<%- include('../partials/head') %>
+<title>Dashboard</title>
+<%- include('../partials/headclose') %>
+<section>
+  <div class="sidenavBarContainer">
+    <ul class="navLinksContainer">
+      <li class="navs">
+        <a href="/admin/category" class="navLinks">Category</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/product" class="navLinks">Product</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/users" class="navLinks">Users</a>
+      </li>
+      <li class="navs activeBg">
+        <a href="/admin/orders" class="navLinks">Orders</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/all" class="navLinks">Admins</a>
+      </li>
+    </ul>
+  </div>
+  <section class="customStyles">
+    <h1 class="categoryHeading">All Orders</h1>
+    <p>Total: <%= newOrders.length %></p>
+    <%- include('../partials/flash') %>
+    <% newOrders.forEach((order) => { %>
+    <form class="usersForm" method="post" action="/shipped/<%= order._id %>" enctype="multipart/form-data">
+      <div class="helpers">
+        <p><%= order.orderDate %></p>
+        <% order.products.forEach((product) => { %>
+        <div class="orderProductContainer">
+          <img class="orderProductImage" src="<%= product.product.images[0].path %>" />
+          <div class="productview">
+            <p>Product Name: <strong><%= product.product.productName %></strong></p>
+            <p>Price: <strong>Rs.<%= product.product.price %>.00 PKR</strong></p>
+            <p>Size: <strong><%= product.size %></strong></p>
+            <p>Quantity: <strong><%= product.quantity %></strong></p>
+            <% if(product.orderNote) {%>
+            <p>Order Note: <%= product.orderNote %></p>
+            <% } %>
+          </div>
+        </div>
+        <% }) %>
+        <div class="userview">
+          <p>User: <strong><%= order.user.firstName %> <%= order.user.lastName %></strong></p>
+          <p>Address: <strong><%= order.user.address %>, <%= order.user.city %> <br> <%= order.user.postalCode %></strong></p>
+          <p>Contact: <strong><%= order.user.contact %></strong></p>
+        </div>
+        <div class="orderView">
+          <p>Order Total: <strong>Rs.<%= order.totalPrice %>.00</strong></p>
+          <p>Payment Method: <strong><%= order.paymentMethod %></strong></p>
+        </div>
+      </div>
+      <button type="submit" class="markShipped">
+        Mark as Shipped
+      </button>
+    </form>
+    <% }) %>
+    <h1 class="categoryHeading">Previous Orders</h1>
+    <p>Total: <%= oldOrders.length %></p>
+    <% oldOrders.forEach((order) => { %>
+    <div class="helpers2">
+      <p><%= order.orderDate %></p>
+      <% order.products.forEach((product) => { %>
+      <div class="orderProductContainer">
+        <img class="orderProductImage" src="<%= product.product.images[0].path %>" />
+        <div class="productview">
+          <p>Product Name: <strong><%= product.product.productName %></strong></p>
+          <p>Price: <strong>Rs.<%= product.product.price %>.00 PKR</strong></p>
+          <p>Size: <strong><%= product.size %></strong></p>
+          <p>Quantity: <strong><%= product.quantity %></strong></p>
+          <p>Order Note: <%= product.orderNote %></p>
+        </div>
+      </div>
+      <% }) %>
+      <div class="userview">
+        <p>User: <strong><%= order.user.firstName %> <%= order.user.lastName %></strong></p>
+        <p>Address: <strong><%= order.user.address %>, <%= order.user.city %> <br> <%= order.user.postalCode %>, <%= order.user.country %></strong></p>
+        <p>Contact: <strong><%= order.user.contact %></strong></p>
+      </div>
+      <div class="orderView">
+        <p>Order Total: <strong>Rs.<%= order.totalPrice %>.00</strong></p>
+        <p>Payment Method: <strong><%= order.paymentMethod %></strong></p>
+      </div>
+    </div>
+    <% }) %>
+  </section>
+</section>
+<%- include('../partials/bodyclose') %>

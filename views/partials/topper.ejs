@@ -1,0 +1,19 @@
+<div class="topper">
+  <div class="searchbarNicon">
+    <i class='bx bx-search'></i>
+    <input placeholder="Search" type="search" class="searcBar" />
+  </div>
+  <div class="icons">
+    <a href="#" class="usericon">
+      <i class='bx bx-user'></i>
+    </a>
+    <a class="cartIcon" href="/cart">
+      <i class='bx bx-cart'></i>
+      <% if(cart === undefined) {%>
+      <span class="badge text-bg-secondary">0</span>
+      <% }else {%>
+      <span class="badge text-bg-secondary"><%= cart.length %></span>
+      <% } %>
+    </a>
+  </div>
+</div>

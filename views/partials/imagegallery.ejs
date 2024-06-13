@@ -1,0 +1,89 @@
+<div class="productInfoWrapper">
+  <div class="productContainer">
+    <div class="product-small-img">
+      <% product.images.map(({path},i) => { %>
+      <% if(i === 0) {%>
+      <img style="opacity: 1;" src="<%= path %>" onclick="myFunction(this)" />
+      <% } else{%>
+      <img src="<%= path %>" onclick="myFunction(this)" />
+      <% } %>
+      <% }) %>
+    </div>
+    <div class="img-container">
+      <img id="full-img" src="<%= product.images[0].path %>" />
+    </div>
+  </div>
+  <div class="detail-container">
+    <h4 class="productName"><%= product.productName %></h4>
+    <p class="productPrice">Rs.<%= product.price %>.00 PKR</p>
+    <hr>
+    <form id="form" method="post" action="/add/product/cart/<%= product._id %>">
+      <% if (product.size.length > 1) { %>
+      <div class="swatches__container mb-3">
+        <% for(let i = 0; i < product.size.length; i++) {%>
+        <% if(product.size[i].stockQty !== 0) {%>
+        <p class="swatches__option-name h5 size">
+          <strong>Size:</strong>
+          <span id="selected-option-1" class="swatches__option-value"><%= product.size[i].name %></span>
+        </p>
+        <% break %>
+        <% } %>
+        <% } %>
+        <div class="swatches">
+          <% let selectedFound = false; %>
+          <% product.size.forEach((size, i) => { %>
+          <% if (!selectedFound && size.stockQty !== 0) { %>
+          <% selectedFound = true; %>
+          <div id="firstSwatch" class="swatches__swatch size selected" onclick="selectSize('<%= size.name %>', '<%= size.stockQty %>')">
+            <% } else { %>
+            <div class="swatches__swatch size <%= size.stockQty === 0 ? 'disabledSwatch' : '' %>" onclick="selectSize('<%= size.name %>', '<%= size.stockQty %>')">
+              <% } %>
+              <input value="<%= size.name %>" id="dummy" type="radio" id="swatch-1-<%= size.name %>" />
+              <label for="swatch-1-<%= size.name %>"><%= size.name %></label>
+            </div>
+            <% }) %>
+          </div>
+        </div>
+        <% } else { %>
+        <p class="size">Size: <%= product.size[0].name %></p>
+        <% } %>
+        <input id="hiddenInput" type="hidden" value="<%= product.size[0].name %>" name="size" />
+        <div class="input-group">
+          <span onclick="decrementQty()" class="input-group-text">-</span>
+          <% if(product.size.length > 1) {%>
+          <input min="1" max="" id="qty" name="qty" class="inputQty" value="1" type="number" />
+          <% }else {%>
+          <input min="1" max="<%= product.size[0].stockQty %>" id="qty" name="qty" class="inputQty" value="1" type="number" />
+          <% } %>
+          <span onclick="incrementQty()" class="input-group-text">+</span>
+        </div>
+        <div class="buttons">
+          <% if(disableBtn === true) {%>
+          <button disabled class="addToCartBtn">Added to cart</button>
+          <% }else {%>
+          <button type="submit" class="addToCartBtn">Add to Cart</button>
+          <% } %>
+    </form>
+    <a href="#" class="morePaymentOptions">More payment options</a>
+  </div>
+  <hr>
+  <p class="color"><strong>Color:</strong></p>
+  <ul class="fabricContainer">
+    <% product.color.map((color) => { %>
+    <li class="eachfabric"><%= color %></li>
+    <% }) %>
+  </ul>
+  <p class="fabric"><strong>Fabric:</strong></p>
+  <ul class="fabricContainer">
+    <% product.fabric.map((fabric) => { %>
+    <li class="eachfabric"><%= fabric %></li>
+    <% }) %>
+  </ul>
+  <p class="productDescriptionHeading"><strong>Product Description:</strong></p>
+  <p class="productDescription"><%= product.description %></p>
+  <% if(product.note) {%>
+  <p class="note"><strong>Note:</strong> <%= product.note %></p>
+  <% } %>
+  <p class="shippingTime"><strong>Shipping Time: 27 April 2023</strong></p>
+</div>
+</div>

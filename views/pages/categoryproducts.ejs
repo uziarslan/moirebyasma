@@ -1,0 +1,31 @@
+<%- include('../partials/head') %>
+<title><%= specificCategory.categoryName %> || Moire By Asma</title>
+<%- include('../partials/headclose') %>
+<%- include('../partials/topper') %>
+<%- include('../partials/navbar') %>
+<div class="categoryContainer">
+  <h3 class="categoryHeading"><%= specificCategory.categoryName %></h3>
+  <div class="productsLength">
+    <p class="numbers"><%= specificCategory.products.length %> products</p>
+  </div>
+  <hr>
+  <% if(specificCategory.products.length !== 0) {%>
+  <div class="productsRow">
+    <% specificCategory.products.map((product) => { %>
+    <a href="/product/<%= product._id %>" class="productCard">
+      <img class="productImage" src="<%= product.images[0].path %>" />
+      <div class="cardBottom">
+        <p class="productTitle"><%= product.productName %></p>
+        <p class="productPrice">Rs.<%= product.price %>.00 PKR</p>
+      </div>
+    </a>
+    <% }) %>
+  </div>
+  <% }else{ %>
+  <h5 class="conditionalText mt-4">Sorry! There's no product right now in this category</h5>
+  <% } %>
+</div>
+<% if(specificCategory.products.length !== 0 ) {%>
+<%- include('../partials/footer') %>
+<% } %>
+<%- include('../partials/bodyclose') %>

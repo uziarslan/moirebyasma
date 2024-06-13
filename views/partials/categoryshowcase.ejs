@@ -1,0 +1,19 @@
+<!-- loop over every category -->
+<% category.map(({categoryName, products}) => { %>
+<div data-aos="zoom-in-up" class="categoryContainer">
+  <% if(products.length !== 0) {%>
+  <h3 class="categoryHeading"><%= categoryName %></h3>
+  <div class="productsRow">
+    <% products.map((product) =>  {%>
+    <a data-aos="zoom-in-up" href="/product/<%= product._id %>" class="productCard">
+      <img class="productImage" src="<%= product.images[0].path %>" />
+      <div class="cardBottom">
+        <p class="productTitle"><%= product.productName %></p>
+        <p class="productPrice">Rs.<%= product.price %>.00 PKR</p>
+      </div>
+    </a>
+    <% }) %>
+    <% } %>
+  </div>
+</div>
+<% }) %>

@@ -1,0 +1,42 @@
+<%- include('../partials/head') %>
+<title>Dashboard</title>
+<%- include('../partials/headclose') %>
+<section>
+  <div class="sidenavBarContainer">
+    <ul class="navLinksContainer">
+      <li class="navs">
+        <a href="/admin/category" class="navLinks">Category</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/product" class="navLinks">Product</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/users" class="navLinks">Users</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/orders" class="navLinks">Orders</a>
+      </li>
+      <li class="navs activeBg">
+        <a href="/admin/all" class="navLinks">Admins</a>
+      </li>
+    </ul>
+  </div>
+  <section class="customStyles">
+    <h1 class="categoryHeading">All Admins</h1>
+    <p>Total: <%= admins.length %></p>
+    <a class="mb-3" href="/admin/signup?secret=<%= secret %>">Make new admin account</a>
+    <a class="mb-3" href="/admin/logout">Logout</a>
+    <%- include('../partials/flash') %>
+    <% admins.map((admin) => { %>
+    <form class="usersForm" method="post" action="/admin/delete/<%= admin._id %>?_method=DELETE">
+      <h6 style="margin: 0;"><span style="font-weight: 400;">Email:</span> <%= admin.username %></h6>
+      <div class="buttn">
+        <button type="submit">
+          <i class='bx bxs-trash-alt'></i>
+        </button>
+      </div>
+    </form>
+    <% }) %>
+  </section>
+</section>
+<%- include('../partials/bodyclose') %>

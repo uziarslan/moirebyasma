@@ -1,0 +1,73 @@
+<%- include('../partials/head') %>
+<title>Your Shopping Cart</title>
+<%- include('../partials/headclose') %>
+<%- include('../partials/topper') %>
+<%- include('../partials/navbar') %>
+<div class="cartHeadingContainer">
+  <a href="/" class="homeBtn">
+    <i class='bx bx-chevron-left'></i>
+    <p class="continueShopping">Continue Shopping</p>
+  </a>
+  <h4 class="cartHeading">Cart</h4>
+  <% if(cart !== undefined && cart.length !== 0) {%>
+  <p class="item-in-cart"><%= cart.length %> item(s)</p>
+  <% }else{%>
+  <p class="item-in-cart">0 item(s)</p>
+  <% } %>
+</div>
+<% if(cart !== undefined && cart.length !== 0) {%>
+<% cart.map((product) => { %>
+<div class="cartProductContainer">
+  <a href="/product/<%= product._id %>">
+    <img src="<%= product.images[0].path %>" class="cartProductImage" />
+  </a>
+  <div class="cartProductDescription">
+    <p class="productName"><%= product.productName %></p>
+    <p class="productSize"><strong>Size:</strong> <%= product.size %></p>
+  </div>
+  <p class="productPrice">Rs.<%=product.price%> PKR</p>
+  <form method="post" action="/refresh/cart/<%= product._id %>" class="cartQtyContainer">
+    <input min="1" max="<%= product.stock %>" id="qty" name="qty" class="inputQty" value="<%= product.qty %>" type="number" />
+    <input type="text" class="d-none" value="<%= product.size %>" name="size" />
+    <button type="submit" href="/cart" class="refresh">Update Cart</button>
+  </form>
+  <p class="total">Rs.<%= parseInt(product.price)*parseInt(product.qty) %>.00 PKR</p>
+  <a class="deleteBtn" href="/delete/<%= product._id %>?size=<%= product.size %>">
+    <i class='bx bxs-trash'></i>
+  </a>
+</div>
+<% }) %>
+<% }else{%>
+<h2 class="emptyCart">Nothing Added to Cart</h2>
+<% } %>
+<% if(cart !== undefined && cart.length > 0) {%>
+<div class="cartLowerContainer">
+  <div class="noteSection">
+    <form method="post" action="/checkout/submit">
+      <textarea name="note" class="noteTextArea" placeholder="Leave a note with your order"></textarea>
+  </div>
+  <div class="subTotalSection">
+    <div class="subtotal">
+      <p class="subtotalText">Subtotal</p>
+      <% let subtotal = 0 %>
+      <% cart.map((product) => { %>
+      <% subtotal = (parseInt(product.price))*(parseInt(product.qty)) + subtotal %>
+      <% }) %>
+      <p class="numbers">Rs.<%= subtotal %>.00PKR</p>
+    </div>
+    <div class="shippingSection">
+      <p class="shippingText">Shipping</p>
+      <p class="shippingCharges">Calculate at checkout</p>
+    </div>
+    <hr>
+    <div class="totalSection">
+      <p class="totalText">Total</p>
+      <p class="totalAmount">Rs.<%= subtotal %>.00 PKR</p>
+    </div>
+    <button type="submit" class="checkoutBtn">Check Out</button>
+    </form>
+  </div>
+</div>
+<%- include('../partials/footer') %>
+<% } %>
+<%- include('../partials/bodyclose') %>

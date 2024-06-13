@@ -1,0 +1,115 @@
+<%- include('../partials/head') %>
+<title>Dashboard</title>
+<%- include('../partials/headclose') %>
+<section>
+  <div class="sidenavBarContainer">
+    <ul class="navLinksContainer">
+      <li class="navs">
+        <a href="/admin/category" class="navLinks">Category</a>
+      </li>
+      <li class="navs activeBg">
+        <a href="/admin/product" class="navLinks">Product</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/users" class="navLinks">Users</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/orders" class="navLinks">Orders</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/all" class="navLinks">Admins</a>
+      </li>
+    </ul>
+  </div>
+  <section class="customStyles">
+    <form class="" method="POST" action="/product" enctype="multipart/form-data" novalidate>
+      <h1 class="categoryHeading">Add a Product</h1>
+      <%- include('../partials/flash') %>
+      <div class="helpers">
+        <div class="row g-3 mb-4">
+          <div class="col-md-4">
+            <label for="images" class="form-label">Product Images:</label>
+            <input class="form-control" type="file" id="images" name="images" multiple required>
+          </div>
+          <div class="col-md-4">
+            <label for="productName" class="form-label">Product Name:</label>
+            <input placeholder="Product Name" class="form-control" type="text" id="productName" name="productName" required>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label" for="price">Price:</label>
+            <input placeholder="Price" class="form-control" type="number" id="price" name="price" step="0.01" required>
+          </div>
+        </div>
+        <div class="row g-3 mb-4">
+          <div class="col-md-4">
+            <label class="form-label" for="size">Sizes:</label>
+            <input class="form-control" type="text" id="size" name="size" placeholder="Separate sizes with commas (e.g., S,M,L)" required>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label" for="stock">Stock:</label>
+            <input class="form-control" type="text" id="stock" name="stock" placeholder="Separate stock quantities with commas" required>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label" for="color">Color:</label>
+            <input placeholder="Separate colors with commas (e.g., Black,Red)" class="form-control" type="text" id="color" name="color" required>
+          </div>
+        </div>
+        <div class="row g-3 mb-4">
+          <div class="col-md-4">
+            <label class="form-label" for="fabric">Fabric:</label>
+            <input class="form-control" type="text" id="fabric" name="fabric" placeholder="Separate fabrics with commas (e.g., Cotton,Polyester)" required>
+          </div>
+          <div class="col-md-4 form-floating">
+            <textarea class="form-control" id="description" name="description" required></textarea>
+            <label for="description">Description:</label>
+          </div>
+          <div class="col-md-4 form-floating">
+            <textarea class="form-control" id="note" name="note"></textarea>
+            <label for="note">Note:</label>
+          </div>
+        </div>
+        <% if(category.length) {%>
+        <div class="row">
+          <div class="col-md-12">
+            <select name="categoryId" class="form-select" aria-label="Default select example">
+              <option disabled selected value="">Select Category or None</option>
+              <% category.map((category) => { %>
+              <option value="<%= category._id %>"><%= category.categoryName %></option>
+              <%}) %>
+            </select>
+          </div>
+        </div>
+        <% } %>
+      </div>
+      <button type="submit" class="btn btn-success">Save</button>
+    </form>
+    <h1 class="categoryHeading">All Products</h1>
+    <% if(products.length > 0) {%>
+    <p>Total: <%= products.length %></p>
+    <div class="categoryContainer">
+      <div class="productsRow">
+        <% for(let i=0; i < products.length; i++) {%>
+        <div class="productCard">
+          <img class="productImage" src="<%= products[i].images[0].path %>" />
+          <div class="cardBottom">
+            <p class="productTitle"><%= products[i].productName %></p>
+            <p class="productPrice">Rs.<%= products[i].price %>.00 PKR</p>
+          </div>
+          <div class="button">
+            <a href="/admin/product/<%= products[i]._id %>/edit">
+              <button class="btn btn-success">Edit</button>
+            </a>
+            <form method="post" action="/product/<%= products[i]._id %>?_method=DELETE">
+              <button type="submit" class="btn btn-danger">Delete Product</button>
+            </form>
+          </div>
+        </div>
+        <% } %>
+      </div>
+    </div>
+    <% } else{%>
+    <h5 class="conditionalText">No Products Found!</h5>
+    <% } %>
+  </section>
+</section>
+<%- include('../partials/bodyclose') %>

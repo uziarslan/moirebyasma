@@ -1,0 +1,46 @@
+<%- include('../partials/head') %>
+<title>Order Confirmation || Moire by Asma</title>
+<%- include('../partials/headclose') %>
+<%- include('../partials/navbar') %>
+<div class="orderConfirmContainer">
+  <h1 class="order-heading">Thank You!</h1>
+  <p>Your order <span class="order-subheading">#1560788996</span> has been placed!</p>
+</div>
+<h2 class="order-list-text">Order List</h2>
+<div class="order-list">
+  <div class="order-container">
+    <figure class="order-image-container">
+      <img src="#" class="order-product-image" />
+    </figure>
+    <div class="order-product-container">
+      <div class="qty-container">
+        <p class="order-product-title">Mini-Max Mini Bean Bag</p>
+        <p class="order-number">#1560788996 | Qty: 1</p>
+      </div>
+      <p class="order-price">$1.99</p>
+    </div>
+  </div>
+  <div class="order-summary">
+    <h2 class="order-summary-text">Order Summary</h2>
+    <div class="order-total-container">
+      <div class="order-subtotal">
+        <p class="order-subtotal">Subtotal</p>
+        <p class="order-subtotal-price">$1.99</p>
+      </div>
+      <div class="order-shipping">
+        <p class="shipping-handling">Shipping & Handling</p>
+        <p class="order-shipping-price">$5.95</p>
+      </div>
+      <div class="order-sales-tax">
+        <p class="sales-text">Sales Tax</p>
+        <p class="sales-tax-price">$5.99</p>
+      </div>
+    </div>
+    <div class="order-total">
+      <p class="total-text">Total</p>
+      <p class="order-total-price">8.63</p>
+    </div>
+  </div>
+</div>
+<%- include('../partials/footer') %>
+<%- include('../partials/bodyclose') %>

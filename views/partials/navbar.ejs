@@ -1,0 +1,22 @@
+<header>
+  <div class="navbar">
+    <div class="logoimg">
+      <a href="/">
+        <img alt="Moire By Asma" src="/images/logo.png" class="logo" />
+      </a>
+    </div>
+    <ul class="links">
+      <% category.map((cat) => { %>
+      <li><a href="/category/<%= cat._id %>/all/products" class="href"><%= cat.categoryName %></a></li>
+      <% }) %>
+    </ul>
+    <div class="toggle_btn">
+      <i class='bx bx-menu'></i>
+    </div>
+  </div>
+  <div class="dropdown_menu">
+    <% category.map((cat) => { %>
+    <li><a href="/category/<%= cat._id %>/all/products" class="href"><%= cat.categoryName %></a></li>
+    <% }) %>
+  </div>
+</header>

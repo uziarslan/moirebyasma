@@ -1,0 +1,61 @@
+<%- include('../partials/head') %>
+<title>Dashboard</title>
+<%- include('../partials/headclose') %>
+<section>
+  <div class="sidenavBarContainer">
+    <ul class="navLinksContainer">
+      <li class="navs activeBg">
+        <a href="/admin/category" class="navLinks">Category</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/product" class="navLinks">Product</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/users" class="navLinks">Users</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/orders" class="navLinks">Orders</a>
+      </li>
+      <li class="navs">
+        <a href="/admin/all" class="navLinks">Admins</a>
+      </li>
+    </ul>
+  </div>
+  <section class="customStyles">
+    <form novalidate class="login-form" method="post" action="/category">
+      <h1 class="categoryHeading">Create a Category</h1>
+      <%- include('../partials/flash') %>
+      <div class="helpers">
+        <h6 class="helperText">1. Enter name for the category</h6>
+        <input required name="categoryName" type="text" class="form-control" placeholder="Category Name" />
+      </div>
+      <button type="submit" class="btn btn-success">Save</button>
+    </form>
+    <h1 class="categoryHeading">All Categories</h1>
+    <% if(category.length> 0) {%>
+    <p>Total: <%= category.length %></p>
+    <div class="createdCategorySection">
+      <div class="createdCategorySection">
+        <% category.map(category => { %>
+        <a href="/view/category/<%= category._id %>" class="tabs">
+          <p class="categoryName"><%= category.categoryName %></p>
+          <form method="get" action="/admin/category/<%= category._id %>">
+            <button type=" submit">
+              <i class='bx bxs-edit'></i>
+            </button>
+          </form>
+          <form method="post" action="/category/<%= category._id %>?_method=DELETE">
+            <button type="submit">
+              <i class='bx bxs-trash-alt'></i>
+            </button>
+          </form>
+        </a>
+        <% }) %>
+      </div>
+    </div>
+    <% } else{%>
+    <h5 class="conditionalText">No Category Found!</h5>
+    <% } %>
+  </section>
+</section>
+<%- include('../partials/bodyclose') %>

@@ -1,0 +1,17 @@
+<%- include('../partials/head') %>
+<title>Signup as Admin</title>
+<%- include('../partials/headclose') %>
+<div class="signupBodyContainer">
+  <form novalidate method="post" action="/admin/login" class="login-form">
+    <h2 class="headingText">Log In</h2>
+    <%- include('../partials/flash') %>
+    <div class="mt-3">
+      <label for="username" class="form-label">Email</label>
+      <input class="form-control mb-3" type="email" name="username" placeholder="Email" required />
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" name="password" placeholder="Password" required>
+    </div>
+    <button type="submit" class="loginSubmitBtn">Login</button>
+  </form>
+</div>
+<%- include('../partials/bodyclose') %>
